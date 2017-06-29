@@ -7,7 +7,7 @@ import com.kotlin.app.domain.model.ForecastList
 /**
  * Created by Alejo on 2017-06-26.
  */
-class RequestForecastCommand(val zipCode: String) : Command<ForecastList> {
+class RequestForecastCommand(private val zipCode: String) : Command<ForecastList> {
 
     override fun execute(): ForecastList {
         val forecastResult = ForecastRequest(zipCode).execute()
