@@ -1,14 +1,12 @@
-package com.kotlin.app
+package com.kotlin.app.data.server
 
-import android.util.Log
 import com.google.gson.Gson
-import com.kotlin.app.data.ForecastResult
 import java.net.URL
 
 /**
  * Created by Alejo on 2017-06-26.
  */
-class ForecastRequest(val zipCode : String) {
+class ForecastRequest(val zipCode: Long) {
 
     companion object {
         private val APP_ID = "15646a06818f61f7b8d7823ca833e1ce"
@@ -16,9 +14,8 @@ class ForecastRequest(val zipCode : String) {
         private val COMPLETE_URL = "$URL&APPID=$APP_ID&q="
     }
 
-    fun execute() : ForecastResult {
-        val json = URL(COMPLETE_URL + zipCode).readText()
-        Log.d(javaClass.simpleName,"jsonString = $json")
-        return Gson().fromJson(json, ForecastResult::class.java)
+    fun execute(): ForecastResult {
+        val forecastJsonStr = URL(COMPLETE_URL + zipCode).readText()
+        return Gson().fromJson(forecastJsonStr, ForecastResult::class.java)
     }
 }
