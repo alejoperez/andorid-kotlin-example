@@ -3,7 +3,6 @@ package com.kotlin.app.domain.mappers
 import com.kotlin.app.data.server.Forecast
 import com.kotlin.app.data.server.ForecastResult
 import com.kotlin.app.domain.model.ForecastList
-import java.text.DateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import com.kotlin.app.domain.model.Forecast as ModelForecast

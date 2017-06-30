@@ -1,5 +1,6 @@
 package com.kotlin.app.domain.commands
 
+import com.kotlin.app.data.db.ForecastDb
 import com.kotlin.app.data.server.ForecastRequest
 import com.kotlin.app.domain.mappers.ForecastDataMapper
 import com.kotlin.app.domain.model.ForecastList
@@ -10,6 +11,8 @@ import com.kotlin.app.domain.model.ForecastList
 class RequestForecastCommand(private val zipCode: Long) : Command<ForecastList> {
     override fun execute(): ForecastList {
         val forecastRequest = ForecastRequest(zipCode)
-        return ForecastDataMapper().convertFromDataModel(zipCode, forecastRequest.execute())
+        val result = ForecastDataMapper().convertFromDataModel(zipCode, forecastRequest.execute())
+        ForecastDb().saveForecast(result)
+        return result
     }
 }
