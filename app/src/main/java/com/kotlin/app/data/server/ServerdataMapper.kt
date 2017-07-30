@@ -1,18 +1,13 @@
-package com.kotlin.app.domain.mappers
+package com.kotlin.app.data.server
 
-import com.kotlin.app.data.server.Forecast
-import com.kotlin.app.data.server.ForecastResult
 import com.kotlin.app.domain.model.ForecastList
 import java.util.*
 import java.util.concurrent.TimeUnit
 import com.kotlin.app.domain.model.Forecast as ModelForecast
 
-/**
- * Created by Alejo on 2017-06-26.
- */
-class ForecastDataMapper {
+class ServerDataMapper {
 
-    fun convertFromDataModel(zipCode: Long, forecast: ForecastResult) = with(forecast) {
+    fun convertToDomain(zipCode: Long, forecast: ForecastResult) = with(forecast) {
         ForecastList(zipCode, city.name, city.country, convertForecastListToDomain(list))
     }
 
@@ -24,7 +19,7 @@ class ForecastDataMapper {
     }
 
     private fun convertForecastItemToDomain(forecast: Forecast) = with(forecast) {
-        ModelForecast(dt, weather[0].description, temp.max.toInt(), temp.min.toInt(),
+        ModelForecast(-1, dt, weather[0].description, temp.max.toInt(), temp.min.toInt(),
                 generateIconUrl(weather[0].icon))
     }
 

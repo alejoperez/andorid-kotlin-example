@@ -3,9 +3,6 @@ package com.kotlin.app.data.db
 import com.kotlin.app.domain.model.Forecast
 import com.kotlin.app.domain.model.ForecastList
 
-/**
- * Created by alejo on 2017-06-30.
- */
 class DbDataMapper {
 
     fun convertFromDomain(forecast: ForecastList) = with(forecast) {
@@ -22,7 +19,7 @@ class DbDataMapper {
         ForecastList(_id, city, country, daily)
     }
 
-    private fun convertDayToDomain(dayForecast: DayForecast) = with(dayForecast) {
-        Forecast(date, description, high, low, iconUrl)
+    fun convertDayToDomain(dayForecast: DayForecast) = with(dayForecast) {
+        Forecast(_id, date, description, high, low, iconUrl)
     }
 }

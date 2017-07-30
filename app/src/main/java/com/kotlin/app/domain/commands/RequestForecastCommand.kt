@@ -1,18 +1,18 @@
 package com.kotlin.app.domain.commands
 
-import com.kotlin.app.data.db.ForecastDb
-import com.kotlin.app.data.server.ForecastRequest
-import com.kotlin.app.domain.mappers.ForecastDataMapper
+import com.kotlin.app.domain.datasource.ForecastProvider
 import com.kotlin.app.domain.model.ForecastList
 
-/**
- * Created by Alejo on 2017-06-26.
- */
-class RequestForecastCommand(private val zipCode: Long) : Command<ForecastList> {
+class RequestForecastCommand(
+        val zipCode: Long,
+        val forecastProvider: ForecastProvider = ForecastProvider()) :
+        Command<ForecastList> {
+
+    companion object {
+        val DAYS = 7
+    }
+
     override fun execute(): ForecastList {
-        val forecastRequest = ForecastRequest(zipCode)
-        val result = ForecastDataMapper().convertFromDataModel(zipCode, forecastRequest.execute())
-        ForecastDb().saveForecast(result)
-        return result
+        return forecastProvider.requestByZipCode(zipCode, DAYS)
     }
 }
